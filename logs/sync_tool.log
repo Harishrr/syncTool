@@ -1,0 +1,377 @@
+2026-09-20 01:15:47.516 [WARNING] [sync_tool.database] PostgreSQL connection failed ((psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)). Falling back to local SQLite: sqlite:///C:\Users\harish.r\.gemini\antigravity-ide\scratch\sync_tool\synctool_local.db
+2026-09-20 01:15:47.872 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'admin' (IP: testclient)
+2026-09-20 01:15:47.909 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'admin' (IP: testclient)
+2026-09-20 01:15:47.935 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'admin' (IP: testclient)
+2026-09-20 01:15:47.958 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'admin' (IP: testclient)
+2026-09-20 01:16:09.714 [INFO] [sync_tool] [AUTH] [INITIAL_ADMIN_SEEDED] Default admin account 'admin' created. (User: admin)
+2026-09-20 01:16:10.179 [INFO] [sync_tool] [JOB] [CSV_IMPORT] Imported 2 jobs from CSV.
+2026-09-20 01:16:10.517 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 01:16:10.891 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 01:16:11.350 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 01:16:11.388 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Integration Test Robocopy' (robocopy) created.
+2026-09-20 01:16:11.843 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 01:16:29.492 [INFO] [sync_tool] [JOB] [CSV_IMPORT] Imported 2 jobs from CSV.
+2026-09-20 01:16:29.850 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 01:16:30.249 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 01:16:30.654 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'operator1' (Role: user) created.
+2026-09-20 01:16:30.983 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'operator1' successfully authenticated. (User: operator1) (IP: testclient)
+2026-09-20 01:16:31.282 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 01:16:31.317 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Integration Test Robocopy' (robocopy) created.
+2026-09-20 01:16:31.733 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 01:16:48.804 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-20 01:16:48.866 [WARNING] [sync_tool.database] PostgreSQL connection failed ((psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)). Falling back to local SQLite: sqlite:///C:\Users\harish.r\.gemini\antigravity-ide\scratch\sync_tool\synctool_local.db
+2026-09-20 01:16:48.900 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-20 01:20:46.472 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: 127.0.0.1)
+2026-09-20 01:23:04.719 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'test1' (robocopy) created.
+2026-09-20 01:30:45.205 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: 127.0.0.1)
+2026-09-20 01:49:25.212 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-20 01:49:25.260 [WARNING] [sync_tool.database] PostgreSQL connection failed ((psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "postgres"
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)). Falling back to local SQLite: sqlite:///C:\Users\harish.r\.gemini\antigravity-ide\scratch\sync_tool\synctool_local.db
+2026-09-20 01:49:25.287 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-20 01:49:25.289 [INFO] [sync_tool] Shutting down Sync Tool service...
+2026-09-20 01:49:45.086 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: 127.0.0.1)
+2026-09-20 02:08:56.850 [ERROR] [sync_tool.database] Failed to switch database to PostgreSQL: (psycopg2.errors.UndefinedTable) relation "users" does not exist
+LINE 2: FROM users 
+             ^
+
+[SQL: SELECT users.id AS users_id, users.username AS users_username, users.email AS users_email, users.hashed_password AS users_hashed_password, users.role AS users_role, users.is_active AS users_is_active, users.totp_secret AS users_totp_secret, users.totp_enabled AS users_totp_enabled, users.created_at AS users_created_at, users.last_login AS users_last_login 
+FROM users 
+WHERE users.username = %(username_1)s OR users.email = %(email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'username_1': 'admin', 'email_1': 'admin@synctool.local', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2026-09-20 02:09:28.413 [INFO] [sync_tool] [AUTH] [INITIAL_ADMIN_SEEDED] Default admin account 'admin' created. (User: admin)
+2026-09-20 02:09:28.421 [INFO] [sync_tool.database] Successfully switched active database to PostgreSQL at localhost:5432/synctool_db
+2026-09-20 02:10:31.762 [INFO] [sync_tool] [JOB] [CSV_IMPORT] Imported 2 jobs from CSV.
+2026-09-20 02:10:32.172 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 02:10:32.528 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 02:10:32.870 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'operator1' (Role: user) created.
+2026-09-20 02:10:33.195 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'operator1' successfully authenticated. (User: operator1) (IP: testclient)
+2026-09-20 02:10:33.541 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 02:10:33.580 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Integration Test Robocopy' (robocopy) created.
+2026-09-20 02:10:34.129 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 02:10:56.042 [INFO] [sync_tool] [JOB] [CSV_IMPORT] Imported 2 jobs from CSV.
+2026-09-20 02:10:56.455 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 02:10:56.860 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 02:10:57.359 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 02:10:57.409 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Integration Test Robocopy' (robocopy) created.
+2026-09-20 02:10:57.942 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 02:10:58.388 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 02:11:21.128 [INFO] [sync_tool] [JOB] [CSV_IMPORT] Imported 2 jobs from CSV.
+2026-09-20 02:11:21.478 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 02:11:21.845 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 02:11:22.275 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'operator1' (Role: user) created.
+2026-09-20 02:11:22.661 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'operator1' successfully authenticated. (User: operator1) (IP: testclient)
+2026-09-20 02:11:23.045 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 02:11:23.086 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Integration Test Robocopy' (robocopy) created.
+2026-09-20 02:11:23.661 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 02:11:24.056 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-20 02:13:58.695 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: 127.0.0.1)
+2026-09-20 02:18:50.536 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-20 02:18:50.676 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-20 02:18:50.708 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-20 02:19:41.477 [INFO] [sync_tool.database] Successfully switched active database to PostgreSQL at localhost:5432/synctool_db
+2026-09-20 02:22:48.503 [INFO] [sync_tool] Shutting down Sync Tool service...
+2026-09-21 15:04:20.823 [INFO] [sync_tool] [JOB] [CSV_IMPORT] Imported 2 jobs from CSV.
+2026-09-21 15:04:21.327 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-21 15:04:21.702 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-21 15:04:22.047 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'operator1' (Role: user) created.
+2026-09-21 15:04:22.437 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'operator1' successfully authenticated. (User: operator1) (IP: testclient)
+2026-09-21 15:04:22.894 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-21 15:04:22.930 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Integration Test Robocopy' (robocopy) created.
+2026-09-21 15:04:23.354 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-21 15:04:23.764 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-21 15:07:29.424 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-21 15:07:29.529 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-21 15:07:29.587 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-21 15:08:05.672 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: 127.0.0.1)
+2026-09-21 15:34:56.692 [INFO] [sync_tool.database] Successfully switched active database to PostgreSQL at localhost:5432/synctool_db
+2026-09-21 15:36:33.182 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'Harish' (Role: user) created.
+2026-09-21 15:37:49.100 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'Harish' successfully authenticated. (User: Harish) (IP: 127.0.0.1)
+2026-09-21 15:46:08.484 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'test2' (robocopy) created.
+2026-09-21 16:00:40.169 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: 127.0.0.1)
+2026-09-21 16:01:31.191 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'Harish' successfully authenticated. (User: Harish) (IP: 127.0.0.1)
+2026-09-21 16:07:24.351 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'test1' (sftp) created.
+2026-09-21 16:08:33.630 [INFO] [sync_tool.database] Successfully switched active database to PostgreSQL at localhost:5432/synctool_db
+2026-09-21 17:24:39.742 [INFO] [sync_tool] [USER_MGMT] [USER_UPDATED] User 'Harish' (ID: 5) updated.
+2026-09-21 17:25:08.092 [INFO] [sync_tool] [USER_MGMT] [USER_UPDATED] User 'Harish' (ID: 5) updated.
+2026-09-21 17:25:43.314 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'Harish' (IP: 127.0.0.1)
+2026-09-21 17:26:02.922 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'Harish' successfully authenticated. (User: Harish) (IP: 127.0.0.1)
+2026-09-21 19:09:22.215 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-21 19:09:22.271 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-21 19:09:22.368 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-21 19:11:40.622 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'harish' (IP: 127.0.0.1)
+2026-09-21 19:11:48.312 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'Harish' successfully authenticated. (User: Harish) (IP: 127.0.0.1)
+2026-09-21 19:12:46.387 [INFO] [sync_tool] [USER_MGMT] [USER_UPDATED] User 'Harish' (ID: 5) updated.
+2026-09-21 19:13:22.278 [INFO] [sync_tool] [USER_MGMT] [USER_UPDATED] User 'Harish' (ID: 5) updated.
+2026-09-21 19:13:31.607 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'Harish' successfully authenticated. (User: Harish) (IP: 127.0.0.1)
+2026-09-21 19:16:54.406 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-21 19:16:54.437 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-21 19:16:54.462 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-21 19:17:30.326 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-21 19:17:30.358 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-21 19:17:30.384 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-21 19:17:36.882 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-21 19:17:36.923 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-21 19:17:36.949 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-21 19:21:15.204 [INFO] [sync_tool] [JOB] [CSV_IMPORT] Imported 2 jobs from CSV.
+2026-09-21 19:21:15.597 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-21 19:21:15.979 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-21 19:21:16.496 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'operator1' (Role: user) created.
+2026-09-21 19:21:16.880 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'operator1' successfully authenticated. (User: operator1) (IP: testclient)
+2026-09-21 19:21:17.336 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-21 19:21:17.375 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Integration Test Robocopy' (robocopy) created.
+2026-09-21 19:21:17.820 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-21 19:21:18.312 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-21 19:32:28.410 [INFO] [sync_tool] Shutting down Sync Tool service...
+2026-09-21 19:32:30.626 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-21 19:32:30.692 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-21 19:32:30.725 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-21 19:32:35.031 [INFO] [sync_tool] Shutting down Sync Tool service...
+2026-09-21 19:32:37.056 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-21 19:32:37.119 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-21 19:32:37.152 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-21 19:37:18.562 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-21 19:37:18.598 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-21 19:37:18.619 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-21 19:38:11.152 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'Harish' (IP: 127.0.0.1)
+2026-09-21 19:38:22.765 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'Harish' (IP: 127.0.0.1)
+2026-09-21 19:38:43.392 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'Harish' (IP: 127.0.0.1)
+2026-09-21 19:38:45.056 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'Harish' (IP: 127.0.0.1)
+2026-09-21 19:39:07.024 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-21 19:39:07.062 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-21 19:39:07.084 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-21 19:39:22.399 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'Harish' (IP: 127.0.0.1)
+2026-09-21 19:39:24.096 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'Harish' (IP: 127.0.0.1)
+2026-09-21 19:39:34.061 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-21 19:39:34.089 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-21 19:39:34.105 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-21 19:39:59.266 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'admin' (IP: 127.0.0.1)
+2026-09-21 19:40:26.153 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'Harish' (IP: 127.0.0.1)
+2026-09-21 19:40:27.850 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'Harish' (IP: 127.0.0.1)
+2026-09-21 19:56:39.121 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-21 19:56:39.194 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-21 19:56:39.219 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-21 19:56:55.882 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'Harish' (IP: 127.0.0.1)
+2026-09-21 19:59:58.202 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'admin' (IP: 127.0.0.1)
+2026-09-23 09:34:57.012 [INFO] [sync_tool] [JOB] [CSV_IMPORT] Imported 2 jobs from CSV.
+2026-09-23 09:34:57.468 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-23 09:34:57.878 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-23 09:34:58.228 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'operator1' (Role: user) created.
+2026-09-23 09:34:58.639 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'operator1' successfully authenticated. (User: operator1) (IP: testclient)
+2026-09-23 09:34:58.991 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-23 09:34:59.046 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Integration Test Robocopy' (robocopy) created.
+2026-09-23 09:34:59.510 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-23 09:34:59.968 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-25 17:20:33.840 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-25 17:20:33.880 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-25 17:20:33.911 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-25 17:21:09.173 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'adhmin' (IP: 127.0.0.1)
+2026-09-25 17:21:35.946 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'Harish.r' (IP: 127.0.0.1)
+2026-09-25 17:23:11.386 [INFO] [sync_tool] [JOB] [CSV_IMPORT] Imported 2 jobs from CSV.
+2026-09-25 17:23:11.640 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-25 17:23:11.880 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-25 17:23:12.130 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'operator1' (Role: user) created.
+2026-09-25 17:23:12.366 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'operator1' successfully authenticated. (User: operator1) (IP: testclient)
+2026-09-25 17:23:12.591 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-25 17:23:12.623 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Integration Test Robocopy' (robocopy) created.
+2026-09-25 17:23:12.916 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-25 17:23:13.276 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-25 17:23:18.012 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-25 17:23:18.045 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-25 17:23:18.065 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-28 15:05:37.752 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-28 15:05:37.852 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-28 15:05:37.962 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-28 15:06:10.853 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'harish.r' (IP: 127.0.0.1)
+2026-09-28 15:06:17.790 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'Harish.r' (IP: 127.0.0.1)
+2026-09-28 15:06:19.618 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'Harish.r' (IP: 127.0.0.1)
+2026-09-28 15:06:19.856 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'Harish.r' (IP: 127.0.0.1)
+2026-09-28 15:06:20.098 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'Harish.r' (IP: 127.0.0.1)
+2026-09-28 15:07:15.867 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-28 15:07:15.914 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-28 15:07:15.930 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-28 15:07:34.688 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: 127.0.0.1)
+2026-09-28 19:30:16.682 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:30:17.107 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:30:17.514 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'operator1' (Role: user) created.
+2026-09-28 19:30:18.018 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'operator1' successfully authenticated. (User: operator1) (IP: testclient)
+2026-09-28 19:30:18.418 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:30:18.797 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:30:19.262 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:30:19.698 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:30:48.769 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:30:49.104 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:30:49.443 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'operator1' (Role: user) created.
+2026-09-28 19:30:49.763 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'operator1' successfully authenticated. (User: operator1) (IP: testclient)
+2026-09-28 19:30:50.099 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:30:50.463 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:30:50.846 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:30:51.258 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:31:34.562 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:31:34.562 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:31:34.924 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:31:34.924 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:31:35.329 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'pwdtestuser' (Role: user) created.
+2026-09-28 19:31:35.666 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:31:35.670 [WARNING] [sync_tool] [USER_MGMT] [USER_PASSWORD_RESET] Password for user 'pwdtestuser' (ID: 11) was reset by admin.
+2026-09-28 19:31:36.029 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'twofauser' (Role: user) created.
+2026-09-28 19:31:36.037 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'pwdtestuser' (IP: testclient)
+2026-09-28 19:31:36.053 [INFO] [sync_tool] [USER_MGMT] [USER_2FA_ENABLED] Google 2FA set to ACTIVE for user 'twofauser' by admin.
+2026-09-28 19:31:36.362 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'pwdtestuser' successfully authenticated. (User: pwdtestuser) (IP: testclient)
+2026-09-28 19:31:36.381 [INFO] [sync_tool] [AUTH] [2FA_CHALLENGE] User 'twofauser' prompted for Google Authenticator TOTP. (User: twofauser) (IP: testclient)
+2026-09-28 19:31:36.399 [WARNING] [sync_tool] [USER_MGMT] [USER_2FA_DISABLED] Google 2FA set to DISABLED for user 'twofauser' by admin.
+2026-09-28 19:31:36.709 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:31:36.734 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'twofauser' successfully authenticated. (User: twofauser) (IP: testclient)
+2026-09-28 19:31:36.737 [ERROR] [sync_tool] Failed to record log to DB: (psycopg2.errors.ForeignKeyViolation) insert or update on table "system_logs" violates foreign key constraint "system_logs_user_id_fkey"
+DETAIL:  Key (user_id)=(13) is not present in table "users".
+
+[SQL: INSERT INTO system_logs (timestamp, level, category, user_id, username, action, details, ip_address) VALUES (%(timestamp)s, %(level)s, %(category)s, %(user_id)s, %(username)s, %(action)s, %(details)s, %(ip_address)s) RETURNING system_logs.id]
+[parameters: {'timestamp': datetime.datetime(2026, 9, 28, 14, 1, 36, 734915, tzinfo=datetime.timezone.utc), 'level': 'INFO', 'category': 'AUTH', 'user_id': 13, 'username': 'twofauser', 'action': 'LOGIN_SUCCESS', 'details': "User 'twofauser' successfully authenticated.", 'ip_address': 'testclient'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2026-09-28 19:31:37.065 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'twofauser' (Role: user) created.
+2026-09-28 19:31:37.086 [INFO] [sync_tool] [USER_MGMT] [USER_2FA_ENABLED] Google 2FA set to ACTIVE for user 'twofauser' by admin.
+2026-09-28 19:31:37.411 [INFO] [sync_tool] [AUTH] [2FA_CHALLENGE] User 'twofauser' prompted for Google Authenticator TOTP. (User: twofauser) (IP: testclient)
+2026-09-28 19:31:37.421 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:31:37.432 [WARNING] [sync_tool] [USER_MGMT] [USER_2FA_DISABLED] Google 2FA set to DISABLED for user 'twofauser' by admin.
+2026-09-28 19:31:37.754 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'twofauser' successfully authenticated. (User: twofauser) (IP: testclient)
+2026-09-28 19:31:37.763 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:31:38.113 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'operator1' (Role: user) created.
+2026-09-28 19:31:38.463 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'operator1' successfully authenticated. (User: operator1) (IP: testclient)
+2026-09-28 19:31:38.831 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:31:39.228 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:31:39.651 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:31:40.065 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:32:07.378 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:32:07.711 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:32:08.111 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'pwdtestuser' (Role: user) created.
+2026-09-28 19:32:08.474 [WARNING] [sync_tool] [USER_MGMT] [USER_PASSWORD_RESET] Password for user 'pwdtestuser' (ID: 16) was reset by admin.
+2026-09-28 19:32:08.802 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'pwdtestuser' (IP: testclient)
+2026-09-28 19:32:09.115 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'pwdtestuser' successfully authenticated. (User: pwdtestuser) (IP: testclient)
+2026-09-28 19:32:09.451 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:33:55.371 [INFO] [sync_tool] [JOB] [CSV_IMPORT] Imported 2 jobs from CSV.
+2026-09-28 19:33:55.730 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:33:56.110 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:33:56.634 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'operator1' (Role: user) created.
+2026-09-28 19:33:57.019 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'operator1' successfully authenticated. (User: operator1) (IP: testclient)
+2026-09-28 19:33:57.477 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:33:57.516 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Integration Test Robocopy' (robocopy, overwrite: newer) created.
+2026-09-28 19:33:57.993 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:33:58.512 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:33:59.181 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:34:26.021 [INFO] [sync_tool] [JOB] [CSV_IMPORT] Imported 2 jobs from CSV.
+2026-09-28 19:34:26.371 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:34:26.530 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:34:26.546 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Job Newer Mode' (robocopy, overwrite: newer) created.
+2026-09-28 19:34:26.567 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Job Always Mode' (robocopy, overwrite: always) created.
+2026-09-28 19:34:26.702 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:34:26.886 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:34:27.032 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'operator1' (Role: user) created.
+2026-09-28 19:34:27.211 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'pwdtestuser' (Role: user) created.
+2026-09-28 19:34:27.359 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'operator1' successfully authenticated. (User: operator1) (IP: testclient)
+2026-09-28 19:34:27.535 [WARNING] [sync_tool] [USER_MGMT] [USER_PASSWORD_RESET] Password for user 'pwdtestuser' (ID: 19) was reset by admin.
+2026-09-28 19:34:27.684 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:34:27.720 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Integration Test Robocopy' (robocopy, overwrite: newer) created.
+2026-09-28 19:34:27.845 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'pwdtestuser' (IP: testclient)
+2026-09-28 19:34:28.143 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:34:28.170 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'pwdtestuser' successfully authenticated. (User: pwdtestuser) (IP: testclient)
+2026-09-28 19:34:28.545 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:34:28.609 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:34:28.878 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'twofauser' (Role: user) created.
+2026-09-28 19:34:28.896 [INFO] [sync_tool] [USER_MGMT] [USER_2FA_ENABLED] Google 2FA set to ACTIVE for user 'twofauser' by admin.
+2026-09-28 19:34:29.001 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:34:29.215 [INFO] [sync_tool] [AUTH] [2FA_CHALLENGE] User 'twofauser' prompted for Google Authenticator TOTP. (User: twofauser) (IP: testclient)
+2026-09-28 19:34:29.226 [WARNING] [sync_tool] [USER_MGMT] [USER_2FA_DISABLED] Google 2FA set to DISABLED for user 'twofauser' by admin.
+2026-09-28 19:34:29.371 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:34:29.388 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Job Newer Mode' (robocopy, overwrite: newer) created.
+2026-09-28 19:34:29.407 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Job Always Mode' (robocopy, overwrite: always) created.
+2026-09-28 19:34:29.554 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'twofauser' successfully authenticated. (User: twofauser) (IP: testclient)
+2026-09-28 19:34:29.733 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:34:30.067 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:35:03.238 [INFO] [sync_tool] [JOB] [CSV_IMPORT] Imported 2 jobs from CSV.
+2026-09-28 19:35:03.575 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:35:03.956 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:35:04.309 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'operator1' (Role: user) created.
+2026-09-28 19:35:04.643 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'operator1' successfully authenticated. (User: operator1) (IP: testclient)
+2026-09-28 19:35:04.973 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:35:05.014 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Integration Test Robocopy' (robocopy, overwrite: newer) created.
+2026-09-28 19:35:05.420 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:35:05.797 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:35:06.193 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:35:33.600 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:35:33.618 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Job Newer Mode' (robocopy, overwrite: newer) created.
+2026-09-28 19:35:33.635 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'Job Always Mode' (robocopy, overwrite: always) created.
+2026-09-28 19:35:33.958 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:35:34.331 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'pwdtestuser' (Role: user) created.
+2026-09-28 19:35:34.692 [WARNING] [sync_tool] [USER_MGMT] [USER_PASSWORD_RESET] Password for user 'pwdtestuser' (ID: 22) was reset by admin.
+2026-09-28 19:35:35.013 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'pwdtestuser' (IP: testclient)
+2026-09-28 19:35:35.398 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'pwdtestuser' successfully authenticated. (User: pwdtestuser) (IP: testclient)
+2026-09-28 19:35:35.727 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: testclient)
+2026-09-28 19:35:36.070 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'twofauser' (Role: user) created.
+2026-09-28 19:35:36.088 [INFO] [sync_tool] [USER_MGMT] [USER_2FA_ENABLED] Google 2FA set to ACTIVE for user 'twofauser' by admin.
+2026-09-28 19:35:36.425 [INFO] [sync_tool] [AUTH] [2FA_CHALLENGE] User 'twofauser' prompted for Google Authenticator TOTP. (User: twofauser) (IP: testclient)
+2026-09-28 19:35:36.450 [WARNING] [sync_tool] [USER_MGMT] [USER_2FA_DISABLED] Google 2FA set to DISABLED for user 'twofauser' by admin.
+2026-09-28 19:35:36.800 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'twofauser' successfully authenticated. (User: twofauser) (IP: testclient)
+2026-09-28 19:41:12.825 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-28 19:41:12.870 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-28 19:41:12.889 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-28 19:41:27.060 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: 127.0.0.1)
+2026-09-28 19:43:43.250 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-28 19:43:43.288 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-28 19:43:43.312 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-28 19:44:16.982 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-28 19:44:17.047 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-28 19:44:17.093 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-28 19:44:28.990 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: 127.0.0.1)
+2026-09-28 19:49:54.066 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'test' (robocopy, overwrite: newer) created.
+2026-09-28 20:00:45.933 [INFO] [sync_tool] [JOB] [JOB_CREATED] Job 'test-1' (robocopy, overwrite: newer) created.
+2026-09-28 20:06:35.131 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-28 20:06:35.178 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-28 20:06:35.212 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-28 20:07:05.792 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'admin' (IP: 127.0.0.1)
+2026-09-28 20:07:19.596 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'admin' (IP: 127.0.0.1)
+2026-09-28 20:08:15.660 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-28 20:08:15.695 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-28 20:08:15.725 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-28 20:08:31.730 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: 127.0.0.1)
+2026-09-28 20:09:22.931 [INFO] [sync_tool] [USER_MGMT] [USER_2FA_ENABLED] Google 2FA set to ACTIVE for user 'operator1' by admin.
+2026-09-28 20:09:42.962 [WARNING] [sync_tool] [USER_MGMT] [USER_2FA_DISABLED] Google 2FA set to DISABLED for user 'operator1' by admin.
+2026-09-28 20:10:48.296 [INFO] [sync_tool] [USER_MGMT] [USER_UPDATED] User 'operator1' (ID: 21) updated.
+2026-09-28 20:12:02.854 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'operator1' successfully authenticated. (User: operator1) (IP: 127.0.0.1)
+2026-09-28 20:27:49.424 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-28 20:27:49.473 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-28 20:27:49.498 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-28 20:28:19.436 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'operator1' successfully authenticated. (User: operator1) (IP: 127.0.0.1)
+2026-09-28 20:30:47.625 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-28 20:30:47.736 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-28 20:30:47.772 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-28 20:31:18.127 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'Harish' (IP: 127.0.0.1)
+2026-09-28 20:31:35.425 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'admin' (IP: 127.0.0.1)
+2026-09-28 20:31:51.589 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'admin' (IP: 127.0.0.1)
+2026-09-28 20:31:53.892 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'admin' (IP: 127.0.0.1)
+2026-09-28 20:31:54.021 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'admin' (IP: 127.0.0.1)
+2026-09-28 20:31:54.344 [WARNING] [sync_tool] [AUTH] [LOGIN_FAILED] Failed login attempt for 'admin' (IP: 127.0.0.1)
+2026-09-28 20:32:04.841 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'admin' successfully authenticated. (User: admin) (IP: 127.0.0.1)
+2026-09-28 20:33:36.519 [INFO] [sync_tool] [USER_MGMT] [USER_UPDATED] User 'pwdtestuser' (ID: 22) updated.
+2026-09-28 20:38:19.554 [INFO] [sync_tool] [AUTH] [2FA_ENABLED] User 'admin' enabled Google Authenticator 2FA. (User: admin)
+2026-09-28 20:38:54.169 [INFO] [sync_tool] [AUTH] [2FA_CHALLENGE] User 'admin' prompted for Google Authenticator TOTP. (User: admin) (IP: 127.0.0.1)
+2026-09-28 20:39:10.314 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS_2FA] User 'admin' completed 2FA login. (User: admin) (IP: 127.0.0.1)
+2026-09-28 20:41:57.962 [INFO] [sync_tool] [USER_MGMT] [USER_CREATED] User 'harish' (Role: user) created.
+2026-09-28 20:43:03.091 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'harish' successfully authenticated. (User: harish) (IP: 127.0.0.1)
+2026-09-30 16:36:13.852 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-30 16:36:13.899 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-30 16:36:13.933 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-30 16:36:43.607 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS] User 'harish' successfully authenticated. (User: harish) (IP: 127.0.0.1)
+2026-09-30 16:38:01.943 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-30 16:38:02.004 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-30 16:38:02.028 [INFO] [sync_tool] Sync Tool initialized and ready for connections.
+2026-09-30 16:39:59.047 [INFO] [sync_tool] [AUTH] [2FA_CHALLENGE] User 'admin' prompted for Google Authenticator TOTP. (User: admin) (IP: 127.0.0.1)
+2026-09-30 16:40:30.872 [INFO] [sync_tool] [AUTH] [LOGIN_SUCCESS_2FA] User 'admin' completed 2FA login. (User: admin) (IP: 127.0.0.1)
+2026-09-30 23:51:46.208 [INFO] [sync_tool] Starting Sync Tool backend service...
+2026-09-30 23:51:46.273 [INFO] [sync_tool.database] Connected to PostgreSQL database successfully at localhost:5432/synctool_db
+2026-09-30 23:51:46.328 [INFO] [sync_tool] Sync Tool initialized and ready for connections.

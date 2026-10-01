@@ -1,0 +1,4 @@
+name,transfer_type,source_path,dest_path,host,port,remote_username,remote_password
+Local Documents Sync,robocopy,C:\Users\harish.r\.gemini\antigravity-ide\scratch\sync_tool\app,C:\Users\harish.r\.gemini\antigravity-ide\scratch\sync_tool\sample_dest_backup,,,,
+Remote SFTP File Drop,sftp,C:\Users\harish.r\.gemini\antigravity-ide\scratch\sync_tool\logs,/var/backup/synctool,192.168.1.100,22,admin,SecretPass123
+High Speed UDP Streamer,udp,C:\Users\harish.r\.gemini\antigravity-ide\scratch\sync_tool\logs,/tmp/udp_received,127.0.0.1,9999,,

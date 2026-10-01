@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sync Tool - Enterprise data synchronization and file replication tool supporting Robocopy, SFTP, and UDP protocols.">
+    <title>Sync Tool - Enterprise Data Synchronization</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="dark-theme">
+    <!-- Notifications Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Auth Overlay (Shown if not logged in) -->
+    <div id="auth-overlay" class="auth-overlay">
+        <div class="auth-modal glass-card">
+            <div class="auth-brand">
+                <div class="brand-logo-glow">
+                    <i class="fa-solid fa-arrows-rotate fa-spin-hover"></i>
+                </div>
+                <h2>Sync Tool</h2>
+                <p>Enterprise Data Synchronization</p>
+            </div>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form">
+                <div class="form-group">
+                    <label for="login-identifier"><i class="fa-solid fa-user"></i> Username or Email</label>
+                    <input type="text" id="login-identifier" required placeholder="admin or user@synctool.local" autocomplete="username">
+                </div>
+                <div class="form-group">
+                    <label for="login-password"><i class="fa-solid fa-lock"></i> Password</label>
+                    <input type="password" id="login-password" required placeholder="Enter password" autocomplete="current-password">
+                </div>
+                <button type="submit" id="btn-login-submit" class="btn btn-primary btn-block">
+                    <span>Sign In</span>
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <!-- Google Authenticator 2FA Step -->
+            <form id="totp-form" class="auth-form hidden">
+                <div class="totp-header">
+                    <i class="fa-solid fa-shield-halved totp-icon"></i>
+                    <h3>Two-Factor Authentication</h3>
+                    <p>Enter the 6-digit verification code from your Google Authenticator app</p>
+                </div>
+                <div class="form-group">
+                    <input type="text" id="totp-code" class="totp-input" maxlength="6" pattern="[0-9]{6}" placeholder="000000" inputmode="numeric" autocomplete="one-time-code" required>
+                </div>
+                <div class="form-row">
+                    <button type="button" id="btn-totp-cancel" class="btn btn-secondary">Back</button>
+                    <button type="submit" id="btn-totp-verify" class="btn btn-primary">Verify & Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Application Shell -->
+    <div id="app-shell" class="app-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="app-sidebar">
+            <div class="sidebar-header">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                </div>
+                <div class="brand-text">
+                    <span class="brand-title">Sync Tool</span>
+                    <span class="brand-badge">v1.0</span>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#dashboard" class="nav-item active" data-view="dashboard">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#jobs" class="nav-item" data-view="jobs">
+                    <i class="fa-solid fa-diagram-project"></i>
+                    <span>Jobs Manager</span>
+                </a>
+                <a href="#users" class="nav-item admin-only hidden" data-view="users">
+                    <i class="fa-solid fa-users-gear"></i>
+                    <span>User Management</span>
+                </a>
+                <a href="#logs" class="nav-item admin-only hidden" data-view="logs">
+                    <i class="fa-solid fa-terminal"></i>
+                    <span>Log Explorer</span>
+                </a>
+                <a href="#reports" class="nav-item" data-view="reports">
+                    <i class="fa-solid fa-file-invoice"></i>
+                    <span>Reports & Analytics</span>
+                </a>
+                <a href="#settings" class="nav-item" data-view="settings">
+                    <i class="fa-solid fa-sliders"></i>
+                    <span>Settings & DB</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="user-profile-badge" id="user-profile-badge">
+                    <div class="user-avatar" id="current-user-avatar">A</div>
+                    <div class="user-info">
+                        <span class="user-name" id="current-username">Admin</span>
+                        <div class="user-subline">
+                            <span class="user-role-badge" id="current-user-role">ADMIN</span>
+                            <span class="user-2fa-status" id="current-user-2fa" title="Google Authenticator 2FA"><i class="fa-solid fa-shield"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-actions">
+                    <button id="btn-setup-2fa-modal" class="btn btn-icon" title="Setup 2FA">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </button>
+                    <button id="btn-signout" class="btn btn-icon btn-danger-hover" title="Sign Out">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="app-main">
+            <!-- Top App Bar -->
+            <header class="app-header">
+                <div class="header-left">
+                    <h1 id="page-title" class="page-title">Dashboard Overview</h1>
+                </div>
+                <div class="header-right">
+                    <div class="header-status-pill">
+                        <span class="status-dot online"></span>
+                        <span id="ws-status-text">Live Sync Connected</span>
+                    </div>
+                    <div class="header-db-pill" id="db-badge-indicator" title="Database status">
+                        <i class="fa-solid fa-database"></i>
+                        <span id="db-active-type">DB: Checking...</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="content-body">
+                <!-- VIEW 1: DASHBOARD -->
+                <section id="view-dashboard" class="content-view active">
+                    <!-- Metrics Row -->
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon icon-cyan">
+                                <i class="fa-solid fa-bolt"></i>
+                            </div>
+                            <div class="stat-details">
+                                <span class="stat-label">Active Transfers</span>
+                                <h2 class="stat-value" id="stat-active-jobs">0</h2>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon icon-green">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </div>
+                            <div class="stat-details">
+                                <span class="stat-label">Completed Runs</span>
+                                <h2 class="stat-value" id="stat-success-runs">0</h2>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon icon-rose">
+                                <i class="fa-solid fa-circle-exclamation"></i>
+                            </div>
+                            <div class="stat-details">
+                                <span class="stat-label">Failed Runs</span>
+                                <h2 class="stat-value" id="stat-failed-runs">0</h2>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon icon-purple">
+                                <i class="fa-solid fa-hard-drive"></i>
+                            </div>
+                            <div class="stat-details">
+                                <span class="stat-label">Total Transferred</span>
+                                <h2 class="stat-value" id="stat-bytes-transferred">0 MB</h2>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Bulk Actions -->
+                    <div class="card action-bar-card">
+                        <div class="card-header-flex">
+                            <div>
+                                <h3>Transfer Control Panel</h3>
+                                <p class="text-muted">Manage real-time execution across all configured sync jobs</p>
+                            </div>
+                            <div class="bulk-controls">
+                                <button id="btn-quick-new-job" class="btn btn-primary">
+                                    <i class="fa-solid fa-plus"></i> New Job
+                                </button>
+                                <button id="btn-quick-import-csv" class="btn btn-secondary">
+                                    <i class="fa-solid fa-file-import"></i> Import CSV
+                                </button>
+                                <button id="btn-dash-start-all" class="btn btn-success">
+                                    <i class="fa-solid fa-play"></i> Start All
+                                </button>
+                                <button id="btn-dash-pause-all" class="btn btn-warning">
+                                    <i class="fa-solid fa-pause"></i> Pause All
+                                </button>
+                                <button id="btn-dash-stop-all" class="btn btn-danger">
+                                    <i class="fa-solid fa-stop"></i> Stop All
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Active / Recent Jobs Table -->
+                    <div class="card">
+                        <div class="card-header-flex">
+                            <h3>Active & Recent Jobs</h3>
+                            <a href="#jobs" class="link-action">View All Jobs <i class="fa-solid fa-arrow-right"></i></a>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table" id="dashboard-jobs-table">
+                                <thead>
+                                    <tr>
+                                        <th>Job Name</th>
+                                        <th>Protocol</th>
+                                        <th>Source & Destination</th>
+                                        <th>Status</th>
+                                        <th>Live Progress</th>
+                                        <th>Speed</th>
+                                        <th>Controls</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="dashboard-jobs-tbody">
+                                    <tr>
+                                        <td colspan="7" class="text-center py-4 text-muted">Loading active jobs...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 2: JOBS MANAGER -->
+                <section id="view-jobs" class="content-view">
+                    <!-- Filter and Toolbar -->
+                    <div class="card filter-bar-card">
+                        <div class="filter-row">
+                            <div class="search-box">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" id="jobs-search-input" placeholder="Search by job name or path...">
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="jobs-filter-status"><i class="fa-solid fa-filter"></i> Status</label>
+                                <select id="jobs-filter-status">
+                                    <option value="all">All Statuses</option>
+                                    <option value="success">Success (Completed)</option>
+                                    <option value="failed">Failed</option>
+                                    <option value="upcoming">Upcoming (Pending)</option>
+                                    <option value="paused">Paused</option>
+                                    <option value="running">Running</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="jobs-filter-type"><i class="fa-solid fa-network-wired"></i> Protocol</label>
+                                <select id="jobs-filter-type">
+                                    <option value="all">All Protocols</option>
+                                    <option value="robocopy">Robocopy (Windows)</option>
+                                    <option value="sftp">SFTP (SSH)</option>
+                                    <option value="udp">UDP High-Speed</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="jobs-filter-start-date"><i class="fa-solid fa-calendar"></i> From</label>
+                                <input type="date" id="jobs-filter-start-date">
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="jobs-filter-end-date"><i class="fa-solid fa-calendar"></i> To</label>
+                                <input type="date" id="jobs-filter-end-date">
+                            </div>
+
+                            <button id="btn-reset-job-filters" class="btn btn-secondary btn-icon" title="Reset Filters">
+                                <i class="fa-solid fa-rotate-left"></i>
+                            </button>
+                        </div>
+
+                        <!-- Action buttons -->
+                        <div class="action-row">
+                            <div class="btn-group">
+                                <button id="btn-create-job-modal" class="btn btn-primary">
+                                    <i class="fa-solid fa-plus"></i> Add Single Job
+                                </button>
+                                <button id="btn-import-csv-modal" class="btn btn-secondary">
+                                    <i class="fa-solid fa-file-import"></i> Import from CSV
+                                </button>
+                                <a href="/api/jobs/csv-template" class="btn btn-secondary" title="Download sample CSV template">
+                                    <i class="fa-solid fa-download"></i> CSV Template
+                                </a>
+                            </div>
+
+                            <div class="btn-group">
+                                <button id="btn-jobs-start-all" class="btn btn-success">
+                                    <i class="fa-solid fa-play"></i> Start All
+                                </button>
+                                <button id="btn-jobs-pause-all" class="btn btn-warning">
+                                    <i class="fa-solid fa-pause"></i> Pause All
+                                </button>
+                                <button id="btn-jobs-stop-all" class="btn btn-danger">
+                                    <i class="fa-solid fa-stop"></i> Stop All
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Jobs List Grid / Table -->
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="data-table" id="jobs-full-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name & ID</th>
+                                        <th>Protocol</th>
+                                        <th>Source Path</th>
+                                        <th>Destination Path</th>
+                                        <th>Status</th>
+                                        <th>Progress Bar</th>
+                                        <th>Speed / Copied</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="jobs-full-tbody">
+                                    <tr>
+                                        <td colspan="8" class="text-center py-4 text-muted">Loading jobs...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 3: USER MANAGEMENT (Admin Only) -->
+                <section id="view-users" class="content-view">
+                    <div class="card action-bar-card">
+                        <div class="card-header-flex">
+                            <div>
+                                <h3>User Management & Role-Based Access (RBAC)</h3>
+                                <p class="text-muted">Manage system administrators and standard operators</p>
+                            </div>
+                            <button id="btn-open-create-user-modal" class="btn btn-primary">
+                                <i class="fa-solid fa-user-plus"></i> Create New User
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="data-table" id="users-table">
+                                <thead>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Email Address</th>
+                                        <th>Role</th>
+                                        <th>Account Status</th>
+                                        <th>Google 2FA</th>
+                                        <th>Created Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="users-tbody">
+                                    <tr>
+                                        <td colspan="7" class="text-center py-4 text-muted">Loading users...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 4: LOG EXPLORER (Admin Only) -->
+                <section id="view-logs" class="content-view">
+                    <div class="card filter-bar-card">
+                        <div class="filter-row">
+                            <div class="search-box">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <input type="text" id="logs-search-input" placeholder="Search logs (action, details, user)...">
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="logs-filter-level"><i class="fa-solid fa-layer-group"></i> Level</label>
+                                <select id="logs-filter-level">
+                                    <option value="ALL">All Levels</option>
+                                    <option value="INFO">INFO</option>
+                                    <option value="WARNING">WARNING</option>
+                                    <option value="ERROR">ERROR</option>
+                                    <option value="CRITICAL">CRITICAL</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="logs-filter-category"><i class="fa-solid fa-tags"></i> Category</label>
+                                <select id="logs-filter-category">
+                                    <option value="ALL">All Categories</option>
+                                    <option value="AUTH">AUTH</option>
+                                    <option value="JOB">JOB</option>
+                                    <option value="USER_MGMT">USER_MGMT</option>
+                                    <option value="SYSTEM">SYSTEM</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="logs-filter-start-date"><i class="fa-solid fa-calendar"></i> From</label>
+                                <input type="date" id="logs-filter-start-date">
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="logs-filter-end-date"><i class="fa-solid fa-calendar"></i> To</label>
+                                <input type="date" id="logs-filter-end-date">
+                            </div>
+
+                            <button id="btn-refresh-logs" class="btn btn-secondary" title="Refresh Logs">
+                                <i class="fa-solid fa-arrows-rotate"></i> Refresh
+                            </button>
+                            <a href="/api/logs/download" class="btn btn-secondary" title="Download raw activity log">
+                                <i class="fa-solid fa-file-arrow-down"></i> Download File
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="table-responsive">
+                            <table class="data-table log-table" id="logs-table">
+                                <thead>
+                                    <tr>
+                                        <th>Timestamp</th>
+                                        <th>Level</th>
+                                        <th>Category</th>
+                                        <th>Action</th>
+                                        <th>User</th>
+                                        <th>Details</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="logs-tbody">
+                                    <tr>
+                                        <td colspan="6" class="text-center py-4 text-muted">Loading system logs...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 5: REPORTS & ANALYTICS -->
+                <section id="view-reports" class="content-view">
+                    <div class="card filter-bar-card">
+                        <div class="filter-row">
+                            <div class="filter-group">
+                                <label for="reports-filter-status"><i class="fa-solid fa-filter"></i> Run Status</label>
+                                <select id="reports-filter-status">
+                                    <option value="all">All Runs</option>
+                                    <option value="success">Success (Completed)</option>
+                                    <option value="failed">Failed</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="reports-filter-start-date"><i class="fa-solid fa-calendar"></i> From</label>
+                                <input type="date" id="reports-filter-start-date">
+                            </div>
+
+                            <div class="filter-group">
+                                <label for="reports-filter-end-date"><i class="fa-solid fa-calendar"></i> To</label>
+                                <input type="date" id="reports-filter-end-date">
+                            </div>
+
+                            <button id="btn-refresh-reports" class="btn btn-secondary">
+                                <i class="fa-solid fa-rotate"></i> Apply Filters
+                            </button>
+
+                            <button id="btn-export-reports-csv" class="btn btn-primary">
+                                <i class="fa-solid fa-file-csv"></i> Export CSV Report
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header-flex">
+                            <h3>Historical Job Executions</h3>
+                            <span id="reports-total-count" class="badge badge-info">0 Records</span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table" id="reports-table">
+                                <thead>
+                                    <tr>
+                                        <th>Run ID</th>
+                                        <th>Job Name</th>
+                                        <th>Protocol</th>
+                                        <th>Operator</th>
+                                        <th>Status</th>
+                                        <th>Start Time</th>
+                                        <th>Duration</th>
+                                        <th>Transferred</th>
+                                        <th>Files</th>
+                                        <th>Exit Code</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reports-tbody">
+                                    <tr>
+                                        <td colspan="10" class="text-center py-4 text-muted">Loading report records...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 6: SETTINGS & DATABASE -->
+                <section id="view-settings" class="content-view">
+                    <div class="card settings-card">
+                        <div class="card-header">
+                            <h3><i class="fa-solid fa-database"></i> Database Engine Status</h3>
+                            <p class="text-muted">Sync Tool supports enterprise PostgreSQL with automatic fallback to high-reliability SQLite</p>
+                        </div>
+
+                        <div class="db-status-display">
+                            <div class="db-indicator-box">
+                                <span class="label">Current Active Engine:</span>
+                                <span id="settings-db-active" class="badge badge-success">PostgreSQL</span>
+                            </div>
+                            <div class="db-details-grid">
+                                <div><strong>Host:</strong> <span id="settings-db-host">localhost</span></div>
+                                <div><strong>Port:</strong> <span id="settings-db-port">5432</span></div>
+                                <div><strong>Database:</strong> <span id="settings-db-name">synctool_db</span></div>
+                                <div><strong>User:</strong> <span id="settings-db-user">postgres</span></div>
+                            </div>
+                        </div>
+
+                        <hr class="divider">
+
+                        <h4>Test PostgreSQL Connection</h4>
+                        <form id="db-test-form" class="form-grid">
+                            <div class="form-group">
+                                <label>Host</label>
+                                <input type="text" id="test-db-host" value="localhost">
+                            </div>
+                            <div class="form-group">
+                                <label>Port</label>
+                                <input type="number" id="test-db-port" value="5432">
+                            </div>
+                            <div class="form-group">
+                                <label>Database Name</label>
+                                <input type="text" id="test-db-name" value="synctool_db">
+                            </div>
+                            <div class="form-group">
+                                <label>User</label>
+                                <input type="text" id="test-db-user" value="postgres">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" id="test-db-password" value="Admin@54321" placeholder="Enter Postgres password">
+                            </div>
+                            <div class="form-actions-full" style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+                                <button type="submit" id="btn-test-db-conn" class="btn btn-secondary">
+                                    <i class="fa-solid fa-plug"></i> Test Connection
+                                </button>
+                                <button type="button" id="btn-apply-db-conn" class="btn btn-primary">
+                                    <i class="fa-solid fa-database"></i> Apply & Switch to PostgreSQL
+                                </button>
+                                <span id="db-test-result" class="test-result-text"></span>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- MODAL: CREATE / EDIT JOB -->
+    <div id="modal-job" class="modal-backdrop hidden">
+        <div class="modal-dialog glass-card">
+            <div class="modal-header">
+                <h3 id="job-modal-title">Create Data Sync Job</h3>
+                <button type="button" class="btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="job-form">
+                <input type="hidden" id="job-id">
+                <div class="form-group">
+                    <label for="job-name"><i class="fa-solid fa-tag"></i> Job Name *</label>
+                    <input type="text" id="job-name" required placeholder="e.g., Daily Database Backup">
+                </div>
+
+                <div class="form-group">
+                    <label for="job-type"><i class="fa-solid fa-network-wired"></i> Transfer Protocol *</label>
+                    <select id="job-type" required>
+                        <option value="robocopy">Robocopy (Windows High-Performance Sync)</option>
+                        <option value="sftp">SFTP (Secure SSH File Transfer Protocol)</option>
+                        <option value="udp">UDP (High-Speed Raw Streamer)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="job-source"><i class="fa-solid fa-folder-open"></i> Source Path *</label>
+                    <div class="input-group">
+                        <input type="text" id="job-source" required placeholder="C:\Data\Folder or file path">
+                        <button type="button" id="btn-browse-source" class="btn btn-secondary btn-input-addon" title="Browse Source Path">
+                            <i class="fa-solid fa-folder-open"></i> Browse
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="job-dest"><i class="fa-solid fa-folder-tree"></i> Destination Path *</label>
+                    <div class="input-group">
+                        <input type="text" id="job-dest" required placeholder="D:\Backup\Folder or /remote/target">
+                        <button type="button" id="btn-browse-dest" class="btn btn-secondary btn-input-addon" title="Browse Destination Path">
+                            <i class="fa-solid fa-folder-tree"></i> Browse
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="job-overwrite-mode"><i class="fa-solid fa-clone"></i> Existing Files Handling *</label>
+                    <select id="job-overwrite-mode" required>
+                        <option value="newer" selected>Overwrite only for newer files (Incremental Sync - Recommended)</option>
+                        <option value="always">Always Overwrite (Replace all existing destination files)</option>
+                    </select>
+                </div>
+
+                <!-- Remote Host Fields (SFTP / UDP) -->
+                <div id="remote-fields-container" class="remote-fields hidden">
+                    <div class="form-row">
+                        <div class="form-group flex-2">
+                            <label for="job-host">Host / IP</label>
+                            <input type="text" id="job-host" placeholder="192.168.1.100 or domain.com">
+                        </div>
+                        <div class="form-group flex-1">
+                            <label for="job-port">Port</label>
+                            <input type="number" id="job-port" placeholder="22">
+                        </div>
+                    </div>
+                    <div class="form-row" id="remote-auth-row">
+                        <div class="form-group">
+                            <label for="job-username">Remote Username</label>
+                            <input type="text" id="job-username" placeholder="user">
+                        </div>
+                        <div class="form-group">
+                            <label for="job-password">Remote Password</label>
+                            <input type="password" id="job-password" placeholder="••••••••">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save Job</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADVANCED FILE & FOLDER BROWSER (Robocopy / SFTP / UDP) -->
+    <div id="modal-file-browser" class="modal-backdrop hidden">
+        <div class="modal-dialog modal-browser-dialog glass-card">
+            <div class="modal-header">
+                <div class="browser-header-title">
+                    <h3 id="browser-title">Browse Directory</h3>
+                    <span id="browser-subtitle" class="browser-subtitle text-muted">Select a source or destination folder</span>
+                </div>
+                <div class="browser-header-actions">
+                    <div id="browser-mode-switcher" class="browser-tab-switcher hidden">
+                        <button type="button" class="browser-tab active" data-mode="local"><i class="fa-solid fa-hard-drive"></i> Local Filesystem</button>
+                        <button type="button" class="browser-tab" data-mode="remote"><i class="fa-solid fa-server"></i> Remote SFTP</button>
+                    </div>
+                    <button type="button" class="btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+
+            <!-- Browser Navigation & Filter Toolbar -->
+            <div class="browser-toolbar">
+                <div class="browser-nav-buttons">
+                    <button type="button" id="btn-browser-up" class="btn btn-icon btn-sm" title="Up one folder"><i class="fa-solid fa-arrow-up"></i></button>
+                    <button type="button" id="btn-browser-refresh" class="btn btn-icon btn-sm" title="Refresh"><i class="fa-solid fa-arrows-rotate"></i></button>
+                    <button type="button" id="btn-browser-home" class="btn btn-icon btn-sm" title="Go to Home"><i class="fa-solid fa-house"></i></button>
+                </div>
+                <div class="browser-address-bar">
+                    <i class="fa-solid fa-folder-tree address-icon"></i>
+                    <input type="text" id="browser-address-input" placeholder="Enter path and press Enter or Go...">
+                    <button type="button" id="btn-browser-go" class="btn btn-primary btn-sm">Go</button>
+                </div>
+                <div class="browser-filter-box">
+                    <i class="fa-solid fa-filter"></i>
+                    <input type="text" id="browser-filter-input" placeholder="Filter items...">
+                </div>
+                <div class="browser-toggles">
+                    <label class="checkbox-label" title="Toggle file visibility">
+                        <input type="checkbox" id="browser-show-files" checked>
+                        <span>Files</span>
+                    </label>
+                    <button type="button" id="btn-browser-mkdir" class="btn btn-secondary btn-sm" title="Create New Folder">
+                        <i class="fa-solid fa-folder-plus"></i> New Folder
+                    </button>
+                    <button type="button" id="btn-browser-native" class="btn btn-secondary btn-sm" title="Open OS native file picker dialog">
+                        <i class="fa-solid fa-window-restore"></i> OS Dialog
+                    </button>
+                </div>
+            </div>
+
+            <!-- Browser Main Layout (Sidebar + Explorer Grid) -->
+            <div class="browser-body">
+                <!-- Left Sidebar: Drives & Shortcuts -->
+                <aside id="browser-sidebar" class="browser-sidebar">
+                    <div class="sidebar-section">
+                        <div class="section-title"><i class="fa-solid fa-hard-drive"></i> Drives</div>
+                        <div id="browser-drives-list" class="sidebar-items-list"></div>
+                    </div>
+                    <div class="sidebar-section">
+                        <div class="section-title"><i class="fa-solid fa-star"></i> Quick Access</div>
+                        <div id="browser-shortcuts-list" class="sidebar-items-list"></div>
+                    </div>
+                </aside>
+
+                <!-- Right Table Explorer -->
+                <div class="browser-content-panel">
+                    <div id="browser-loading" class="browser-loading-spinner hidden">
+                        <i class="fa-solid fa-spinner fa-spin"></i>
+                        <span>Loading directory contents...</span>
+                    </div>
+                    <div class="browser-table-wrapper">
+                        <table class="data-table browser-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Type</th>
+                                    <th>Size</th>
+                                    <th>Date Modified</th>
+                                </tr>
+                            </thead>
+                            <tbody id="browser-items-tbody">
+                                <!-- Loaded dynamically via browser.js -->
+                            </tbody>
+                        </table>
+                        <div id="browser-empty" class="browser-empty-state hidden">
+                            <i class="fa-solid fa-folder-open"></i>
+                            <p>This folder is empty or contains no matching files.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Browser Footer: Selection & Action -->
+            <div class="browser-footer">
+                <div class="browser-selection-info">
+                    <span class="selection-label">Selected:</span>
+                    <span id="browser-selected-path" class="selection-path text-truncate" title="None">None</span>
+                </div>
+                <div class="browser-footer-actions">
+                    <button type="button" id="btn-browser-select-current" class="btn btn-secondary btn-sm">
+                        <i class="fa-solid fa-folder-check"></i> Choose Current Folder
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-close-modal">Cancel</button>
+                    <button type="button" id="btn-browser-confirm" class="btn btn-primary" disabled>
+                        <i class="fa-solid fa-check"></i> Select
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: IMPORT CSV -->
+    <div id="modal-import-csv" class="modal-backdrop hidden">
+        <div class="modal-dialog glass-card">
+            <div class="modal-header">
+                <h3>Batch Import Jobs from CSV</h3>
+                <button type="button" class="btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="import-csv-form">
+                <div class="csv-drop-zone" id="csv-drop-zone">
+                    <i class="fa-solid fa-cloud-arrow-up drop-icon"></i>
+                    <h4>Drag & Drop CSV file here</h4>
+                    <p>or click to select file from your computer</p>
+                    <input type="file" id="csv-file-input" accept=".csv" class="hidden-file-input">
+                    <span id="selected-file-name" class="selected-file-badge hidden"></span>
+                </div>
+
+                <div class="csv-template-notice">
+                    <p>Required columns: <code>name, transfer_type, source_path, dest_path</code> (Optional: <code>overwrite_mode, host, port, remote_username, remote_password</code>)</p>
+                    <a href="/api/jobs/csv-template" class="link-download"><i class="fa-solid fa-download"></i> Download Sample CSV Template</a>
+                </div>
+
+                <div id="csv-import-results" class="import-results hidden"></div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close-modal">Close</button>
+                    <button type="submit" id="btn-submit-csv" class="btn btn-primary" disabled>Upload & Import</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: CREATE / EDIT USER -->
+    <div id="modal-user" class="modal-backdrop hidden">
+        <div class="modal-dialog glass-card">
+            <div class="modal-header">
+                <h3 id="user-modal-title">Create User</h3>
+                <button type="button" class="btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="user-form">
+                <input type="hidden" id="edit-user-id">
+                <div class="form-group">
+                    <label for="user-username">Username *</label>
+                    <input type="text" id="user-username" required placeholder="username">
+                </div>
+                <div class="form-group">
+                    <label for="user-email">Email Address *</label>
+                    <input type="email" id="user-email" required placeholder="user@synctool.local">
+                </div>
+                <div class="form-group" id="user-password-group">
+                    <label for="user-password">Password *</label>
+                    <input type="password" id="user-password" placeholder="Minimum 6 characters">
+                </div>
+                <div class="form-group">
+                    <label for="user-role">Role (RBAC) *</label>
+                    <select id="user-role" required>
+                        <option value="user">Operator (Standard User)</option>
+                        <option value="admin">Administrator (Full Access)</option>
+                    </select>
+                </div>
+                <div class="form-group" id="user-active-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="user-is-active" checked>
+                        <span>Account is Active</span>
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close-modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Save User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADMIN RESET USER PASSWORD -->
+    <div id="modal-reset-password" class="modal-backdrop hidden">
+        <div class="modal-dialog glass-card">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-key" style="color: var(--accent-amber)"></i> Reset User Password</h3>
+                <button type="button" class="btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="form-reset-password">
+                <input type="hidden" id="reset-pwd-user-id">
+                <div class="form-group">
+                    <label>Target User Account</label>
+                    <div id="reset-pwd-username-display" class="user-display-pill font-mono">user</div>
+                </div>
+
+                <div class="form-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                        <label for="reset-pwd-new-password" style="margin-bottom: 0;">New Password *</label>
+                        <button type="button" id="btn-generate-password" class="btn btn-secondary btn-sm" style="padding: 2px 8px; font-size: 0.75rem;">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Generate Strong Password
+                        </button>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="reset-pwd-new-password" required minlength="6" placeholder="Enter new password (min 6 chars)">
+                        <button type="button" id="btn-toggle-pwd-visibility" class="btn btn-secondary btn-input-addon" title="Show / Hide Password">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="reset-pwd-confirm-password">Confirm New Password *</label>
+                    <input type="password" id="reset-pwd-confirm-password" required minlength="6" placeholder="Re-type new password">
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close-modal">Cancel</button>
+                    <button type="submit" id="btn-submit-reset-password" class="btn btn-primary">
+                        <i class="fa-solid fa-check"></i> Reset Password
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: GOOGLE AUTHENTICATOR (2FA) ENROLLMENT -->
+    <div id="modal-2fa-setup" class="modal-backdrop hidden">
+        <div class="modal-dialog glass-card">
+            <div class="modal-header">
+                <h3>Google Authenticator (2FA)</h3>
+                <button type="button" class="btn-close-modal"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="setup-2fa-body">
+                <p>Enhance your account security with two-factor authentication.</p>
+                <div class="qr-container">
+                    <img id="qr-code-img" src="" alt="Google Authenticator QR Code" class="qr-image">
+                </div>
+                <div class="secret-key-display">
+                    <span>Manual Secret:</span>
+                    <code id="totp-secret-text">--------</code>
+                </div>
+                <form id="form-confirm-2fa">
+                    <div class="form-group">
+                        <label for="confirm-2fa-code">Enter 6-Digit Code from App to Confirm:</label>
+                        <input type="text" id="confirm-2fa-code" class="totp-input" maxlength="6" pattern="[0-9]{6}" placeholder="000000" required>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="btn-disable-2fa" class="btn btn-danger hidden">Disable 2FA</button>
+                        <button type="button" class="btn btn-secondary btn-close-modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Activate 2FA</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Javascript Modules -->
+    <script src="/static/js/app.js"></script>
+    <script src="/static/js/browser.js"></script>
+    <script src="/static/js/dashboard.js"></script>
+    <script src="/static/js/jobs.js"></script>
+    <script src="/static/js/users.js"></script>
+    <script src="/static/js/logs.js"></script>
+    <script src="/static/js/reports.js"></script>
+</body>
+</html>
